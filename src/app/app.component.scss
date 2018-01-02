@@ -1,0 +1,26 @@
+
+.live-data-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin: 16px;
+}
+
+.graph-holder {
+    margin: 16px;
+}
+
+mat-card {
+    &.live-data {
+        
+         width:300px;
+        
+        mat-card-title {
+            font-size: 70px;
+        }
+    }
+     
+    &.graph {
+        height: 500px;
+    }
+}
