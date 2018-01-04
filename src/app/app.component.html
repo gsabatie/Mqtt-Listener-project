@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <span>MyMaterial</span>
+    <span>{{Title}}</span>
 </mat-toolbar>
 
 <div class="live-data-row">
@@ -24,8 +24,13 @@
 </div>
 <div class="graph-holder">
   <mat-card class="graph">
-    <div>
-      <x-chartist></x-chartist>
-    </div>
+      <x-chartist
+      [data]="chart.data"
+      [type]="chart.type"
+      [options]="chart.options"
+      [responsiveOptions]="chart.responsiveOptions"
+  [events]="chart.events">
+
+      </x-chartist>
   </mat-card>
 </div>
