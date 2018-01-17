@@ -13,7 +13,7 @@
 mat-card {
     &.live-data {
         
-         width:300px;
+         width: 400px;
         
         mat-card-title {
             font-size: 70px;
@@ -21,6 +21,29 @@ mat-card {
     }
      
     &.graph {
-        height: 500px;
+        height: 450px;
+        padding-bottom: 10px;
+        .options {
+            height: 30px;
+            float: right;
+            margin-bottom: 8px;
+            .checkbox-block {
+                float: left;
+                margin-top: 5px 16px; 
+            }
+            mat-form-field {
+                float: right;
+                margin-top: -10px;
+                margin-left: 10px;
+            }
+        }
+        x-chartist {
+            &.chart {
+            height: 200px;
+            padding-bottom: 10px;
+            } 
+        }
+        
     }
 }
+

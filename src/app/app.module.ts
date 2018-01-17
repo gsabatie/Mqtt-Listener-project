@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { MatCardModule, MatMenuModule, MatSidenavModule, MatSelectModule,  MatCheckboxModule, MatToolbarModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatCardModule, MatMenuModule, MatSidenavModule, MatSelectModule,  MatCheckboxModule, MatToolbarModule, MatFormFieldModule, MatOptionModule } from '@angular/material';
 import {ChartistModule} from 'ng-chartist';
 
 import { AppComponent } from './app.component';
@@ -13,11 +13,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MatCardModule,
     MatMenuModule,
     MatSidenavModule,
+    MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatOptionModule,
     MatToolbarModule,
     ChartistModule
    // angularChartist.name
