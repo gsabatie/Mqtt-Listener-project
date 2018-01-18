@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HUMIDITY } from './mock.humidity';
-@Injectable()
-export class HumidityService {
+import { Injectable } from "@angular/core";
+import { LIGTH } from "./mock.ligth";
+import { MqttService, MqttMessage } from "ngx-mqtt";
+import { Observable } from "rxjs/Observable";
 
-  constructor() { }
-  gethumiditydata() {
-    return HUMIDITY;
+import { MQTTService } from "./service";
+@Injectable()
+export class HumidityService extends MQTTService {
+  getHumiditydata() {
+    return super.getdata("humidity");
   }
 }
