@@ -59,6 +59,7 @@ export class AppComponent {
   }
 
   reloadChart(data: any, labels: string[], title: string) {
+    this.lineChartData[0].data = null;
     this.lineChartData[0].data = data;
     this.lineChartData[0].label = title;
     this.lineChartLabels = labels;
@@ -71,21 +72,18 @@ export class AppComponent {
     this.ligthService.getLightdata().subscribe((message: MqttMessage) => {
       this.lightData.labels.push(Date());
       this.lightData.series[0].push(parseInt(message.payload.toString()));
-      //this.lightData.datapush(parseInt(message.payload.toString()));
       this.updateData();
     });
 
     this.weatherService.getWeatherdata().subscribe((message: MqttMessage) => {
       this.weatherData.labels.push(Date());
-      this.weatherData.series[0].push(parseInt(message.payload.toString()));
-      //this.weatherData.push(parseInt(message.payload.toString()));
+      this.weatherData.series[0].push(parseFloat(message.payload.toString()));
       this.updateData();
     });
 
     this.humidityService.getHumiditydata().subscribe((message: MqttMessage) => {
       this.humidityData.labels.push(Date());
-      this.humidityData.series[0].push(parseInt(message.payload.toString()));
-      // this.humidityData.push(parseInt(message.payload.toString()));
+      this.humidityData.series[0].push(parseFloat(message.payload.toString()));
       this.updateData();
     });
   }
@@ -112,6 +110,7 @@ export class AppComponent {
         "Luminosité"
       );
     }
+    this.lineChartData = this.lineChartData.slice();
   }
 
   public lineChartData: Array<any> = [{ data: [], label: "Lumiosité" }];
