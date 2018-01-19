@@ -11,10 +11,24 @@
 
 mat-card {
   &.live-data {
+    background: #673ab7;
+    color: white;
     width: 400px;
 
+    span {
+      &.card-title {
+        font-size: 70px;
+      }
+    }
     mat-card-title {
-      font-size: 70px;
+      color: white;
+    }
+    mat-card-subtitle {
+      color: white;
+    }
+    img {
+      margin-top: 20px;
+      height: 120px;
     }
   }
 

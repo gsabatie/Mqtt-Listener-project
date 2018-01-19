@@ -4,16 +4,16 @@
 
 <div class="live-data-row">
   <mat-card class="live-data">
-    <mat-card-title>{{weatherData.series[0][weatherData.series[0].length-1]}} °C </mat-card-title>
-    <mat-card-subtitle>Temperature</mat-card-subtitle>
+    <img src="../assets/thermometer.png" />
+    <span class="card-title">{{weatherData.series[0][weatherData.series[0].length-1]}} °C</span>
   </mat-card>
   <mat-card class="live-data">
-    <mat-card-title>{{lightData.series[0][lightData.series[0].length-1]}} </mat-card-title>
-    <mat-card-subtitle>Luminosité</mat-card-subtitle>
+    <img src="../assets/light-bulb.png" />
+    <span class="card-title">{{lightData.series[0][lightData.series[0].length-1]}} lm</span>
   </mat-card>
   <mat-card class="live-data">
-    <mat-card-title>{{humidityData.series[0][humidityData.series[0].length-1]}} %</mat-card-title>
-    <mat-card-subtitle>Humidité</mat-card-subtitle>
+    <img src="../assets/rain-drops.png" />
+    <span class="card-title">{{humidityData.series[0][humidityData.series[0].length-1]}} %</span>
   </mat-card>
 </div>
 
@@ -21,7 +21,7 @@
   <mat-card class="graph">
     <div class="options">
       <mat-form-field>
-        <mat-select [(value)]="selected" placeholder="Luminosite" (change)="onChangeSelect()">
+        <mat-select [(value)]="selected" placeholder="Choisir une courbe" (change)="onChangeSelect()">
           <mat-option value="humidity">Humidite</mat-option>
           <mat-option value="weather">Temperature</mat-option>
           <mat-option value="light">Luminosite</mat-option>
