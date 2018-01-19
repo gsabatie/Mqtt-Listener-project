@@ -1,43 +1,34 @@
 <mat-toolbar color="primary">
-    <span>{{Title}}</span>
+  <span>DASHBOARD</span>
 </mat-toolbar>
 
 <div class="live-data-row">
   <mat-card class="live-data">
-    <mat-card-title >20°C </mat-card-title>
+    <mat-card-title>{{weatherData.series[0][weatherData.series[0].length-1]}} °C </mat-card-title>
     <mat-card-subtitle>Temperature</mat-card-subtitle>
-  </mat-card> 
+  </mat-card>
   <mat-card class="live-data">
-    <mat-card-title >400 </mat-card-title>
-    <mat-card-subtitle>Luminosité</mat-card-subtitle> 
-  </mat-card> 
+    <mat-card-title>{{lightData.series[0][lightData.series[0].length-1]}} </mat-card-title>
+    <mat-card-subtitle>Luminosité</mat-card-subtitle>
+  </mat-card>
   <mat-card class="live-data">
-    <mat-card-title >20% </mat-card-title>
-    <mat-card-subtitle>Humidité</mat-card-subtitle> 
+    <mat-card-title>{{humidityData.series[0][humidityData.series[0].length-1]}} %</mat-card-title>
+    <mat-card-subtitle>Humidité</mat-card-subtitle>
   </mat-card>
 </div>
 
 <div class="graph-holder">
   <mat-card class="graph">
     <div class="options">
-      <div class="checkbox-block">
-          <mat-checkbox (change)="onHumidityCheckboxChange($event)" [checked]="true" >Humidité</mat-checkbox>
-          <mat-checkbox (change)="onWeatherCheckboxChange($event)" [checked]="true" >Temperature</mat-checkbox>
-          <mat-checkbox (change)="onLigthCheckboxChange($event)" [checked]="true" >Luminosité</mat-checkbox>
-      </div>
-        <mat-form-field >
-            <mat-select [(value)]="selected" placeholder="En direct">
-              <mat-option value="option1">Ce mois-ci</mat-option>
-              <mat-option value="option2">Cette semaine</mat-option>
-              <mat-option value="option3">En direct</mat-option>
-            </mat-select>
-          </mat-form-field>
+      <mat-form-field>
+        <mat-select [(value)]="selected" placeholder="Luminosite" (change)="onChangeSelect()">
+          <mat-option value="humidity">Humidite</mat-option>
+          <mat-option value="weather">Temperature</mat-option>
+          <mat-option value="light">Luminosite</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <x-chartist
-      class="chart"
-      [data]="chartData"
-      [type]="chartType"
-      [options]="chartOptions"bb>
-      </x-chartist>
+    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+      [chartType]="lineChartType"></canvas>
   </mat-card>
 </div>

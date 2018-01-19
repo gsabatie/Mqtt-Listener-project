@@ -7,6 +7,6 @@ import { MQTTService } from "./service";
 @Injectable()
 export class HumidityService extends MQTTService {
   getHumiditydata() {
-    return super.getdata("humidity");
+    return super.getdata("IoT/humidity");
   }
 }

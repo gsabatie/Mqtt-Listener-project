@@ -7,6 +7,6 @@ import { MQTTService } from "./service";
 @Injectable()
 export class LigthService extends MQTTService {
   getLightdata() {
-    return super.getdata("light");
+    return super.getdata("IoT/light");
   }
 }

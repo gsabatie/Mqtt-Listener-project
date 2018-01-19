@@ -6,27 +6,12 @@ import {
   ContentChild,
   AfterContentInit
 } from "@angular/core";
-import * as Chartist from "chartist";
-import chartistComponent, {
-  ChartistComponent,
-  ChartType,
-  ChartEvent,
-  ChartistModule
-} from "ng-chartist";
 
 import { MqttService, MqttMessage } from "ngx-mqtt";
 
 import { WeatherService } from "./mqtt/weather.service";
 import { LigthService } from "./mqtt/ligth.service";
 import { HumidityService } from "./mqtt/humidity.service";
-
-export interface Chart {
-  type: ChartType;
-  data: Chartist.IChartistData;
-  options?: any;
-  responsiveOptions?: any;
-  events?: ChartEvent;
-}
 
 @Component({
   selector: "app-root",
@@ -37,13 +22,9 @@ export interface Chart {
 export class AppComponent {
   title = "Dashboard";
 
-  chart: Chart;
-  temperatureData: any;
-  humidyData: any;
-  lightData: any;
-  weatherData: any;
-
-  chartistComponent: ChartistComponent;
+  weatherData = { labels: [], series: [[]] };
+  humidityData = { labels: [], series: [[]] };
+  lightData = { labels: [], series: [[]] };
 
   chartData: any;
   chartOptions: any;
@@ -57,7 +38,10 @@ export class AppComponent {
   shouldHideWeatherLine: Boolean;
   shouldHideLigthLine: Boolean;
 
+  selected = "light";
+
   constructor(
+    private mqtt: MqttService,
     weathers: WeatherService,
     ligth: LigthService,
     humidity: HumidityService
@@ -65,75 +49,77 @@ export class AppComponent {
     this.weatherService = weathers;
     this.ligthService = ligth;
     this.humidityService = humidity;
-    this.chartOptions = {
-      showArea: true,
-      showLine: false,
-      showPoint: false,
-      fullWidth: true,
-      height: "400px",
-      axisX: {
-        showLabel: false,
-        showGrid: false
-      }
-    };
+    this.shouldHideLigthLine = false;
+    this.shouldHideHumidityLine = true;
+    this.shouldHideWeatherLine = true;
+    this.chartOptions = { responsive: true };
 
     this.chartType = "Line";
-    this.chartData = {
-      labels: [1, 2, 3, 4, 5, 6, 7, 8],
-      series: []
-    };
     this.subscribeChannel();
   }
 
-  reloadChart(data: any) {
-    this.chartData = data;
+  reloadChart(data: any, labels: string[], title: string) {
+    this.lineChartData[0].data = data;
+    this.lineChartData[0].label = title;
+    this.lineChartLabels = labels;
   }
 
-  onCheckBoxChange() {
+  onChangeSelect() {
     this.updateData();
   }
-
   subscribeChannel() {
     this.ligthService.getLightdata().subscribe((message: MqttMessage) => {
-      alert(message.payload.toString());
+      this.lightData.labels.push(Date());
+      this.lightData.series[0].push(parseInt(message.payload.toString()));
+      //this.lightData.datapush(parseInt(message.payload.toString()));
+      this.updateData();
     });
 
-    // this.weatherService.getWeatherdata().subscribe((message: MqttMessage) => {
-    //   alert(message.payload.toString());
-    // });
+    this.weatherService.getWeatherdata().subscribe((message: MqttMessage) => {
+      this.weatherData.labels.push(Date());
+      this.weatherData.series[0].push(parseInt(message.payload.toString()));
+      //this.weatherData.push(parseInt(message.payload.toString()));
+      this.updateData();
+    });
 
-    // this.humidityService.getHumiditydata().subscribe((message: MqttMessage) => {
-    //   alert(message.payload.toString());
-    // });
+    this.humidityService.getHumiditydata().subscribe((message: MqttMessage) => {
+      this.humidityData.labels.push(Date());
+      this.humidityData.series[0].push(parseInt(message.payload.toString()));
+      // this.humidityData.push(parseInt(message.payload.toString()));
+      this.updateData();
+    });
   }
 
   updateData() {
-    this.ligthService.test();
-    const data = { labels: [1, 2, 3, 4, 5, 6, 7, 8], series: [] };
-    // if (this.shouldHideHumidityLine === false) {
-    //   data.series.push(this.humidyData);
-    // }
-    // if (this.shouldHideWeatherLine === false) {
-    //   data.series.push(this.weatherData);
-    // }
-    // if (this.shouldHideLigthLine === false) {
-    //   data.series.push(this.lightData);
-    // }
-    // this.reloadChart(data);
+    if (this.selected === "humidity") {
+      this.reloadChart(
+        this.humidityData.series[0],
+        this.humidityData.labels,
+        "Humidité"
+      );
+    }
+    if (this.selected === "weather") {
+      this.reloadChart(
+        this.weatherData.series[0],
+        this.weatherData.labels,
+        "Temperature"
+      );
+    }
+    if (this.selected === "light") {
+      this.reloadChart(
+        this.lightData.series[0],
+        this.lightData.labels,
+        "Luminosité"
+      );
+    }
   }
 
-  onHumidityCheckboxChange($event) {
-    this.shouldHideHumidityLine = !this.shouldHideHumidityLine;
-    this.onCheckBoxChange();
-  }
+  public lineChartData: Array<any> = [{ data: [], label: "Lumiosité" }];
+  public lineChartLabels: Array<any> = [];
+  public lineChartOptions: any = {
+    responsive: true
+  };
 
-  onWeatherCheckboxChange($event) {
-    this.shouldHideWeatherLine = !this.shouldHideWeatherLine;
-    this.onCheckBoxChange();
-  }
-
-  onLigthCheckboxChange($event) {
-    this.shouldHideLigthLine = !this.shouldHideLigthLine;
-    this.onCheckBoxChange();
-  }
+  public lineChartLegend: boolean = true;
+  public lineChartType: string = "line";
 }

@@ -1,49 +1,39 @@
-
 .live-data-row {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    margin: 16px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin: 16px;
 }
 
 .graph-holder {
-    margin: 16px;
+  margin: 16px;
 }
 
 mat-card {
-    &.live-data {
-        
-         width: 400px;
-        
-        mat-card-title {
-            font-size: 70px;
-        }
-    }
-     
-    &.graph {
-        height: 450px;
-        padding-bottom: 10px;
-        .options {
-            height: 30px;
-            float: right;
-            margin-bottom: 8px;
-            .checkbox-block {
-                float: left;
-                margin-top: 5px 16px; 
-            }
-            mat-form-field {
-                float: right;
-                margin-top: -10px;
-                margin-left: 10px;
-            }
-        }
-        x-chartist {
-            &.chart {
-            height: 200px;
-            padding-bottom: 10px;
-            } 
-        }
-        
-    }
-}
+  &.live-data {
+    width: 400px;
 
+    mat-card-title {
+      font-size: 70px;
+    }
+  }
+
+  &.graph {
+    height: 800px;
+    padding-bottom: 10px;
+    .options {
+      height: 30px;
+      float: right;
+      margin-bottom: 8px;
+      .checkbox-block {
+        float: left;
+        margin-top: 5px 16px;
+      }
+      mat-form-field {
+        float: right;
+        margin-top: -10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

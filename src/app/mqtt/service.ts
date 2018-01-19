@@ -14,8 +14,8 @@ export class MQTTService {
   }
   test() {
     alert("mqtt");
-    this._mqttService.unsafePublish("test", "message", {
-      qos: 1,
+    this._mqttService.unsafePublish("light", "message", {
+      qos: 0,
       retain: true
     });
   }

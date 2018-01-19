@@ -11,7 +11,8 @@ import {
   MatFormFieldModule,
   MatOptionModule
 } from "@angular/material";
-import { ChartistModule } from "ng-chartist";
+
+import { ChartsModule } from "ng2-charts";
 import { AppComponent } from "./app.component";
 
 import {
@@ -23,8 +24,9 @@ import {
 } from "ngx-mqtt";
 
 export const MQTT_SERVICE_OPTIONS: MqttServiceOptions = {
-  hostname: "m23.cloudmqtt.com",
-  port: 31030
+  hostname: "test.mosquitto.org",
+  port: 8080,
+  path: "/mqtt"
 };
 
 export function mqttServiceFactory() {
@@ -44,7 +46,7 @@ export function mqttServiceFactory() {
     MatCheckboxModule,
     MatOptionModule,
     MatToolbarModule,
-    ChartistModule,
+    ChartsModule,
     MqttModule.forRoot({
       provide: MqttService,
 
