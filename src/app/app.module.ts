@@ -23,11 +23,7 @@ import {
   OnMessageEvent
 } from "ngx-mqtt";
 
-export const MQTT_SERVICE_OPTIONS: MqttServiceOptions = {
-  hostname: "test.mosquitto.org",
-  port: 8080,
-  path: "/mqtt"
-};
+import { MQTT_SERVICE_OPTIONS } from "./MQTToptions";
 
 export function mqttServiceFactory() {
   return new MqttService(MQTT_SERVICE_OPTIONS);
